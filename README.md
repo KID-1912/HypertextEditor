@@ -65,7 +65,7 @@ const editor = new Editor({
 });
 ```
 
-> You can find more examples [here](EXAMPLES.md).
+> You can find more examples [here](examples).
 
 ## Events
 
