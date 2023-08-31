@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .wrapper {
+        width: 240px;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #editor {
+        width: 240px;
+        height: 40px;
+        font-size: 14px;
+        line-height: 1.2;
+      }
+      #editor {
+        width: 240px;
+        height: 20px;
+        font-size: 14px;
+        line-height: 20px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      #editor::-webkit-scrollbar {
+        display: none;
+      }
+      .mb-10 {
+        margin-bottom: 10px;
+      }
+    </style>
+    <title>单行输入文本框</title>
+  </head>
+
+  <body>
+    <h4 class="mb-10">单行输入框</h4>
+    <div class="wrapper mb-10">
+      <div id="editor"></div>
+    </div>
+    content：<span id="content-box">请输入文字</span>
+  </body>
+  <script src="../dist/hypertextEditor.min.js"></script>
+
+  <script>
+    const editor = new HypertextEditor({
+      el: "#editor",
+      content: "请输入文字",
+      mode: "input",
+    });
+
+    const $contentBox = document.querySelector("#content-box");
+    editor.on("change", () => {
+      $contentBox.innerHTML = editor.content;
+    });
+  </script>
+</html>

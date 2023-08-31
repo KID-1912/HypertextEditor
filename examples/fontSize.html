@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .wrapper {
+        width: 240px;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #editor {
+        width: 240px;
+        height: 120px;
+        font-size: 14px;
+        line-height: 1.2;
+      }
+      .mb-10 {
+        margin-bottom: 10px;
+      }
+    </style>
+    <title>设置字号</title>
+  </head>
+
+  <body>
+    <h4 class="mb-10">设置字号</h4>
+    <div class="wrapper mb-10">
+      <div id="editor"></div>
+    </div>
+    <div class="preset-fontSize-list mb-10">
+      预设字号：
+      <button type="button" data-font-size="12px">12px</button>
+      <button type="button" data-font-size="16px">16px</button>
+      <button type="button" data-font-size="20px">20px</button>
+      <button type="button" data-font-size="24px">24px</button>
+    </div>
+    <div>
+      <p>全局字号：<span id="editor-fontSize">未设置字号</span></p>
+      <p>选区字号：<span id="selection-fontSize">无选区</span></p>
+      <p>选区内容：“<span id="selection-text">无选区</span>”</p>
+    </div>
+
+    <script src="../dist/hypertextEditor.min.js"></script>
+
+    <script>
+      const editor = new HypertextEditor({
+        el: "#editor",
+        content: "请输入文字",
+      });
+
+      // 选中选区
+      const editorFontSize = document.querySelector("#editor-fontSize");
+      const selectionFontSize = document.querySelector("#selection-fontSize");
+      const textSelection = document.querySelector("#selection-text");
+      editor.on("selectionchange", function (state) {
+        console.log(state);
+        selectionFontSize.innerText =
+          state === null ? "无选区" : state.fontSize;
+        textSelection.innerText = state === null ? "无选区" : state.text;
+      });
+
+      // 设置固定颜色
+      const $presetFontSizeList = document.querySelector(
+        ".preset-fontSize-list"
+      );
+      $presetFontSizeList.addEventListener("click", (event) => {
+        const fontSize = event.target.dataset.fontSize;
+        if (!fontSize) return;
+        // 选中文字
+        const selection = editor.getSelection();
+        if (selection.queryState("text")) {
+          editor.format("fontSize", fontSize);
+          selectionFontSize.innerText = selection.queryState("fontSize");
+          editorFontSize.innerText = editor.fontSize;
+        }
+        // 全局设置
+        else {
+          editor.formatText("fontSize", fontSize);
+          editorFontSize.innerText = editor.fontSize;
+        }
+      });
+    </script>
+  </body>
+</html>

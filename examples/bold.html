@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .wrapper {
+        width: 240px;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #editor {
+        width: 240px;
+        height: 120px;
+        font-size: 14px;
+        line-height: 1.2;
+      }
+      .mb-10 {
+        margin-bottom: 10px;
+      }
+    </style>
+    <title>设置加粗</title>
+  </head>
+
+  <body>
+    <h4 class="mb-10">设置加粗</h4>
+    <div class="wrapper mb-10">
+      <div id="editor"></div>
+    </div>
+    <div class="mb-10">
+      <button type="button" data-bold>加粗/取消加粗</button>
+    </div>
+    <div>
+      <p>全局加粗：<span class="editor-bold">false</span></p>
+      <p>选区加粗：<span class="selection-bold">未选中选区</span></p>
+    </div>
+
+    <script src="../dist/hypertextEditor.min.js"></script>
+    <script>
+      const editor = new HypertextEditor({
+        el: "#editor",
+        content: "请输入文字",
+      });
+
+      // 选中选区
+      const styleSelection = document.querySelector("#editor-bold");
+      const textSelection = document.querySelector("#selection-bold");
+      editor.on("selectionchange", function (state) {
+        selectionBold.innerText = state === null ? "未选中选区" : state.bold;
+      });
+
+      const boldBtn = document.querySelector("[data-bold]");
+      const editorBold = document.querySelector(".editor-bold");
+      const selectionBold = document.querySelector(".selection-bold");
+      boldBtn.addEventListener("click", function () {
+        // 选区加粗/取消加粗
+        const selection = editor.getSelection();
+        // 选区选中文字
+        if (selection.queryState("text")) {
+          const bold = selection.queryState("bold");
+          editor.format("bold", !bold);
+          selectionBold.innerText = !bold;
+          editorBold.innerText = editor.bold;
+        }
+        // 全局加粗/取消加粗
+        else {
+          editor.formatText("bold", !editor.bold);
+          editorBold.innerText = editor.bold;
+        }
+      });
+    </script>
+  </body>
+</html>

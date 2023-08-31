@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .wrapper {
+        width: 240px;
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      #editor {
+        width: 240px;
+        height: 120px;
+        font-size: 14px;
+        line-height: 1.2;
+      }
+      #colorPicker {
+        width: 24px;
+        height: 24px;
+        border: 1px solid #ccc;
+      }
+      .mb-10 {
+        margin-bottom: 10px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"
+    />
+    <title>设置颜色</title>
+  </head>
+
+  <body>
+    <h4 class="mb-10">设置颜色</h4>
+    <div class="wrapper mb-10">
+      <div id="editor"></div>
+    </div>
+    <div class="preset-color-list mb-10">
+      预设颜色：
+      <button type="button" data-color="#cccccc">#cccccc</button>
+      <button type="button" data-color="#0d79f4">#0d79f4</button>
+      <button type="button" data-color="#333333">#333333</button>
+      <button type="button" data-color="#6fcef6">#6fcef6</button>
+    </div>
+    <div class="mb-10" style="display: flex">
+      第三方控件设置选区颜色：
+      <div id="colorPicker"></div>
+    </div>
+    <div class="mb-10">
+      <p>全局颜色：<span id="editor-color"></span></p>
+      <p>选区颜色：<span id="selection-color">无选区</span></p>
+      <p>选区内容：“<span id="selection-text">无选区</span>”</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="../dist/hypertextEditor.min.js"></script>
+
+    <script>
+      const editor = new HypertextEditor({
+        el: "#editor",
+        content: "请输入文字",
+      });
+
+      // 选中选区
+      const editorColor = document.querySelector("#editor-color");
+      const selectionColor = document.querySelector("#selection-color");
+      const textSelection = document.querySelector("#selection-text");
+      editor.on("selectionchange", function (state) {
+        console.log(state);
+        selectionColor.innerText = state === null ? "无选区" : state.color;
+        textSelection.innerText = state === null ? "无选区" : state.text;
+      });
+
+      // 设置固定颜色
+      const $presetColorList = document.querySelector(".preset-color-list");
+      $presetColorList.addEventListener("click", (event) => {
+        const color = event.target.dataset.color;
+        if (!color) return;
+        const selection = editor.getSelection();
+        // 选中文字
+        if (selection.queryState("text")) {
+          editor.format("color", color);
+          selectionColor.innerText = selection.queryState("color");
+        }
+        // 全局设置
+        else {
+          editor.formatText("color", color);
+          editorColor.innerText = editor.color;
+        }
+      });
+
+      // 第三方控件自定义颜色
+      const pickr = Pickr.create({
+        el: "#colorPicker",
+        theme: "classic",
+        useAsButton: true,
+        comparison: false,
+        defaultRepresentation: "RGBA",
+        components: {
+          opacity: true,
+          hue: true,
+          interaction: {
+            hex: true,
+            rgba: true,
+            input: true,
+            save: true,
+          },
+        },
+      });
+      // 阻止选区丢失
+      const $colorPicker = document.querySelector("#colorPicker");
+      $colorPicker.addEventListener("mousedown", (event) => {
+        event.preventDefault();
+      });
+      // 选区保存与恢复
+      let savedSelection;
+      pickr.on("show", () => {
+        savedSelection = editor.getSelection();
+        savedSelection.saveRange();
+      });
+      pickr.on("save", () => {
+        savedSelection.restoreRange();
+        const colorString = pickr.getColor().toRGBA().toString(0);
+        $colorPicker.style.backgroundColor = colorString;
+        // 选中文字
+        if (savedSelection.queryState("text")) {
+          editor.format("color", colorString);
+          selectionColor.innerText = savedSelection.queryState("color");
+        }
+        // 全局设置
+        else {
+          editor.formatText("color", colorString);
+          editorColor.innerText = editor.color;
+        }
+        pickr.hide();
+      });
+    </script>
+  </body>
+</html>
