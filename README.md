@@ -1,4 +1,4 @@
-# hypertextEditor
+# HypertextEditor
 
 <h3 align="center">
     一个轻量、极简的JavaScript富文本插件
@@ -7,12 +7,16 @@
 <br/>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/hypertextEditor"><img
+  <a href="https://www.npmjs.com/package/HypertextEditor">
+    <img
      alt="NPM URL"
-     src="https://img.shields.io/badge/npm-hypertextEditor?logo=npm"></a>
-  <a href="https://www.jsdelivr.com/package/npm/hypertextEditor"><img
+     src="https://img.shields.io/badge/npm-HypertextEditor?logo=npm">
+  </a>
+  <a href="https://www.jsdelivr.com/package/npm/HypertextEditor">
+    <img
      alt="JSDelivr URL"
-     src="https://img.shields.io/badge/JsDelivr-ff5627"></a>
+     src="https://img.shields.io/badge/JsDelivr-ff5627">
+  </a>
   <img
      alt="version"
      src="https://img.shields.io/badge/version-1.0.0-blue">
@@ -21,7 +25,7 @@
 <br>
 
 <h4 align="center">
-  <a href="https://simonwep.github.io/pickr/">Featured demo</a>
+  <a href="https://kid-1912.github.io/HypertextEditor/examples/">Featured demo</a>
 </h4>
 
 <br>
@@ -33,7 +37,7 @@
 #### Node
 
 ```shell
-npm install hypertextEditor -S
+npm install HypertextEditor -S
 ```
 
 ### Brower
@@ -53,7 +57,7 @@ jsdelivr:
 ## Usage
 
 ```js
-import Editor from "hypertextEditor"
+import Editor from "HypertextEditor"
 const editor = new Editor({
   el: "#editor",
   content: "默认文本",
@@ -183,11 +187,17 @@ pickr.on("save", () => {
   overflow-x: auto; // 横向滚动
   white-space: nowrap;  // 单行
 }
+
+const editor = new HypertextEditor({
+  el: "#input",
+  mode: "input",
+  ...
+})
 ```
 
 ### 关于样式
 
-hypertextEditor作为富文本插件，仅负责HTML内容的编辑（数据层面），不控制内容页面展示，具体如：white-space、word-break、默认字号、默认行高等都继承自页面样式，自行定义样式控制。
+HypertextEditor作为富文本插件，仅负责HTML内容的编辑（数据层面），不控制内容页面展示，具体如：white-space、word-break、默认字号、默认行高等都继承自页面样式，自行定义样式控制。
 
 ## Relations
 
