@@ -1,4 +1,4 @@
-# HypertextEditor
+# hypertextEditor
 
 <h3 align="center">
     一个轻量、极简的JavaScript富文本插件
@@ -7,12 +7,12 @@
 <br/>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/HypertextEditor">
+  <a href="https://www.npmjs.com/package/hypertextEditor">
     <img
      alt="NPM URL"
-     src="https://img.shields.io/badge/npm-HypertextEditor?logo=npm">
+     src="https://img.shields.io/badge/npm-hypertextEditor?logo=npm">
   </a>
-  <a href="https://www.jsdelivr.com/package/npm/HypertextEditor">
+  <a href="https://www.jsdelivr.com/package/npm/hypertextEditor">
     <img
      alt="JSDelivr URL"
      src="https://img.shields.io/badge/JsDelivr-ff5627">
@@ -25,7 +25,7 @@
 <br>
 
 <h4 align="center">
-  <a href="https://kid-1912.github.io/HypertextEditor/examples/">Featured demo</a>
+  <a href="https://kid-1912.github.io/hypertextEditor/examples/">Featured demo</a>
 </h4>
 
 <br>
@@ -37,7 +37,7 @@
 #### Node
 
 ```shell
-npm install HypertextEditor -S
+npm install hypertextEditor -S
 ```
 
 ### Brower
@@ -57,7 +57,7 @@ jsdelivr:
 ## Usage
 
 ```js
-import Editor from "HypertextEditor"
+import Editor from "hypertextEditor"
 const editor = new Editor({
   el: "#editor",
   content: "默认文本",
