@@ -1,6 +1,6 @@
 {
   "name": "hypertext-editor",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.0",
   "description": "一个轻量、极简的JavaScript富文本插件",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,11 @@
     "JavaScript"
   ],
   "author": "kid-1912",
+  "homepage": "https://github.com/KID-1912/hypertextEditor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KID-1912/hypertextEditor.git"
+  },
   "license": "ISC",
   "dependencies": {
     "lodash-es": "^4.17.21"
