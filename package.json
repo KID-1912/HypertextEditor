@@ -1,8 +1,8 @@
 {
   "name": "hypertext-editor",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "一个轻量、极简的JavaScript富文本插件",
-  "main": "index.js",
+  "main": "dist/HyperTextEditor.js",
   "scripts": {
     "build": "rollup -c"
   },
