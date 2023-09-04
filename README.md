@@ -119,7 +119,7 @@ static defaultOptions = {
 
 - editor.on(event`:String`, cb`:Function`) : 添加事件监听
 
-- editor.remove(event`:String`, handler`:Function`) : 移除事件监听
+- editor.off(event`:String`, handler`:Function`) : 移除事件监听
 
 - editor.getSelection(): 获取编辑区选区(选区API集合)
 
@@ -191,7 +191,7 @@ pickr.on("save", () => {
 const editor = new HypertextEditor({
   el: "#input",
   mode: "input",
-  ...
+  ..
 })
 ```
 
