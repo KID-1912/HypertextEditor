@@ -7,12 +7,12 @@
 <br/>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/hypertextEditor">
+  <a href="https://www.npmjs.com/package/hypertext-editor">
     <img
      alt="NPM URL"
      src="https://img.shields.io/badge/npm-hypertextEditor?logo=npm">
   </a>
-  <a href="https://www.jsdelivr.com/package/npm/hypertextEditor">
+  <a href="https://www.jsdelivr.com/package/npm/hypertext-editor">
     <img
      alt="JSDelivr URL"
      src="https://img.shields.io/badge/JsDelivr-ff5627">
@@ -37,7 +37,7 @@
 #### Node
 
 ```shell
-npm install hypertextEditor -S
+npm install hypertext-editor -S
 ```
 
 ### Brower
@@ -57,7 +57,7 @@ jsdelivr:
 ## Usage
 
 ```js
-import Editor from "hypertextEditor"
+import Editor from "hypertext-editor"
 const editor = new Editor({
   el: "#editor",
   content: "默认文本",

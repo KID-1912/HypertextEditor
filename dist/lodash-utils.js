@@ -1,3 +1,6 @@
+import _sliceInstanceProperty from "@babel/runtime-corejs3/core-js-stable/instance/slice";
+import _parseInt from "@babel/runtime-corejs3/core-js-stable/parse-int";
+import _setTimeout from "@babel/runtime-corejs3/core-js-stable/set-timeout";
 /**
  * Checks if `value` is the
  * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
@@ -30,7 +33,6 @@ function isObject(value) {
 
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
 var freeGlobal$1 = freeGlobal;
 
 /** Detect free variable `self`. */
@@ -38,7 +40,6 @@ var freeSelf = typeof self == 'object' && self && self.Object === Object && self
 
 /** Used as a reference to the global object. */
 var root = freeGlobal$1 || freeSelf || Function('return this')();
-
 var root$1 = root;
 
 /**
@@ -57,10 +58,9 @@ var root$1 = root;
  * }, _.now());
  * // => Logs the number of milliseconds it took for the deferred invocation.
  */
-var now = function() {
+var now = function () {
   return root$1.Date.now();
 };
-
 var now$1 = now;
 
 /** Used to match a single whitespace character. */
@@ -76,7 +76,6 @@ var reWhitespace = /\s/;
  */
 function trimmedEndIndex(string) {
   var index = string.length;
-
   while (index-- && reWhitespace.test(string.charAt(index))) {}
   return index;
 }
@@ -92,14 +91,11 @@ var reTrimStart = /^\s+/;
  * @returns {string} Returns the trimmed string.
  */
 function baseTrim(string) {
-  return string
-    ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, '')
-    : string;
+  return string ? _sliceInstanceProperty(string).call(string, 0, trimmedEndIndex(string) + 1).replace(reTrimStart, '') : string;
 }
 
 /** Built-in value references. */
 var Symbol = root$1.Symbol;
-
 var Symbol$1 = Symbol;
 
 /** Used for built-in method references. */
@@ -127,13 +123,11 @@ var symToStringTag$1 = Symbol$1 ? Symbol$1.toStringTag : undefined;
  */
 function getRawTag(value) {
   var isOwn = hasOwnProperty.call(value, symToStringTag$1),
-      tag = value[symToStringTag$1];
-
+    tag = value[symToStringTag$1];
   try {
     value[symToStringTag$1] = undefined;
     var unmasked = true;
   } catch (e) {}
-
   var result = nativeObjectToString$1.call(value);
   if (unmasked) {
     if (isOwn) {
@@ -168,7 +162,7 @@ function objectToString(value) {
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
-    undefinedTag = '[object Undefined]';
+  undefinedTag = '[object Undefined]';
 
 /** Built-in value references. */
 var symToStringTag = Symbol$1 ? Symbol$1.toStringTag : undefined;
@@ -184,9 +178,7 @@ function baseGetTag(value) {
   if (value == null) {
     return value === undefined ? undefinedTag : nullTag;
   }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
+  return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
 }
 
 /**
@@ -238,8 +230,7 @@ var symbolTag = '[object Symbol]';
  * // => false
  */
 function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+  return typeof value == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
 }
 
 /** Used as references for various `Number` constants. */
@@ -255,7 +246,7 @@ var reIsBinary = /^0b[01]+$/i;
 var reIsOctal = /^0o[0-7]+$/i;
 
 /** Built-in method references without a dependency on `root`. */
-var freeParseInt = parseInt;
+var freeParseInt = _parseInt;
 
 /**
  * Converts `value` to a number.
@@ -289,16 +280,14 @@ function toNumber(value) {
   }
   if (isObject(value)) {
     var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject(other) ? (other + '') : other;
+    value = isObject(other) ? other + '' : other;
   }
   if (typeof value != 'string') {
     return value === 0 ? value : +value;
   }
   value = baseTrim(value);
   var isBinary = reIsBinary.test(value);
-  return (isBinary || reIsOctal.test(value))
-    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-    : (reIsBadHex.test(value) ? NAN : +value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(_sliceInstanceProperty(value).call(value, 2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
 }
 
 /** Error message constants. */
@@ -306,7 +295,7 @@ var FUNC_ERROR_TEXT = 'Expected a function';
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max,
-    nativeMin = Math.min;
+  nativeMin = Math.min;
 
 /**
  * Creates a debounced function that delays invoking `func` until after `wait`
@@ -364,16 +353,15 @@ var nativeMax = Math.max,
  */
 function debounce(func, wait, options) {
   var lastArgs,
-      lastThis,
-      maxWait,
-      result,
-      timerId,
-      lastCallTime,
-      lastInvokeTime = 0,
-      leading = false,
-      maxing = false,
-      trailing = true;
-
+    lastThis,
+    maxWait,
+    result,
+    timerId,
+    lastCallTime,
+    lastInvokeTime = 0,
+    leading = false,
+    maxing = false,
+    trailing = true;
   if (typeof func != 'function') {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
@@ -384,56 +372,45 @@ function debounce(func, wait, options) {
     maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
     trailing = 'trailing' in options ? !!options.trailing : trailing;
   }
-
   function invokeFunc(time) {
     var args = lastArgs,
-        thisArg = lastThis;
-
+      thisArg = lastThis;
     lastArgs = lastThis = undefined;
     lastInvokeTime = time;
     result = func.apply(thisArg, args);
     return result;
   }
-
   function leadingEdge(time) {
     // Reset any `maxWait` timer.
     lastInvokeTime = time;
     // Start the timer for the trailing edge.
-    timerId = setTimeout(timerExpired, wait);
+    timerId = _setTimeout(timerExpired, wait);
     // Invoke the leading edge.
     return leading ? invokeFunc(time) : result;
   }
-
   function remainingWait(time) {
     var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime,
-        timeWaiting = wait - timeSinceLastCall;
-
-    return maxing
-      ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke)
-      : timeWaiting;
+      timeSinceLastInvoke = time - lastInvokeTime,
+      timeWaiting = wait - timeSinceLastCall;
+    return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
   }
-
   function shouldInvoke(time) {
     var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime;
+      timeSinceLastInvoke = time - lastInvokeTime;
 
     // Either this is the first call, activity has stopped and we're at the
     // trailing edge, the system time has gone backwards and we're treating
     // it as the trailing edge, or we've hit the `maxWait` limit.
-    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+    return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
   }
-
   function timerExpired() {
     var time = now$1();
     if (shouldInvoke(time)) {
       return trailingEdge(time);
     }
     // Restart the timer.
-    timerId = setTimeout(timerExpired, remainingWait(time));
+    timerId = _setTimeout(timerExpired, remainingWait(time));
   }
-
   function trailingEdge(time) {
     timerId = undefined;
 
@@ -445,7 +422,6 @@ function debounce(func, wait, options) {
     lastArgs = lastThis = undefined;
     return result;
   }
-
   function cancel() {
     if (timerId !== undefined) {
       clearTimeout(timerId);
@@ -453,19 +429,15 @@ function debounce(func, wait, options) {
     lastInvokeTime = 0;
     lastArgs = lastCallTime = lastThis = timerId = undefined;
   }
-
   function flush() {
     return timerId === undefined ? result : trailingEdge(now$1());
   }
-
   function debounced() {
     var time = now$1(),
-        isInvoking = shouldInvoke(time);
-
+      isInvoking = shouldInvoke(time);
     lastArgs = arguments;
     lastThis = this;
     lastCallTime = time;
-
     if (isInvoking) {
       if (timerId === undefined) {
         return leadingEdge(lastCallTime);
@@ -473,12 +445,12 @@ function debounce(func, wait, options) {
       if (maxing) {
         // Handle invocations in a tight loop.
         clearTimeout(timerId);
-        timerId = setTimeout(timerExpired, wait);
+        timerId = _setTimeout(timerExpired, wait);
         return invokeFunc(lastCallTime);
       }
     }
     if (timerId === undefined) {
-      timerId = setTimeout(timerExpired, wait);
+      timerId = _setTimeout(timerExpired, wait);
     }
     return result;
   }
@@ -486,5 +458,4 @@ function debounce(func, wait, options) {
   debounced.flush = flush;
   return debounced;
 }
-
 export { debounce as d };
