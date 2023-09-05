@@ -45,7 +45,7 @@ npm install hypertext-editor -S
 jsdelivr:
 
 ```html
-<script src=""></script>
+<script src="https://cdn.jsdelivr.net/npm/hypertext-editor/dist/hypertextEditor.min.js"></script>
 <script>
   const editor = new HypertextEditor({
     el: "#editor",
